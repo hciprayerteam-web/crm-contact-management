@@ -86,6 +86,9 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <div className="login-header">
           <h1>Hopeline Care</h1>
           <p>Contact Management System</p>
+          <div className="demo-notice">
+            <small>🚀 <strong>Live Demo</strong> - Try different user roles below</small>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -187,6 +190,22 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                   disabled={isSubmitting}
                 >
                   Login as Editor
+                </button>
+              </div>
+
+              <div className="demo-account">
+                <div className="demo-info">
+                  <strong>Viewer</strong>
+                  <span>Username: viewer | Password: viewer123</span>
+                  <small>Read-only access to view data</small>
+                </div>
+                <button
+                  type="button"
+                  className="demo-login-btn viewer"
+                  onClick={() => handleDemoLogin('viewer', 'viewer123')}
+                  disabled={isSubmitting}
+                >
+                  Login as Viewer
                 </button>
               </div>
             </div>

@@ -46,6 +46,19 @@
   font-size: 1rem;
 }
 
+.demo-notice {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.demo-notice small {
+  font-size: 0.85rem;
+}
+
 .login-form {
   margin-bottom: 2rem;
 }
@@ -247,6 +260,24 @@
 
 .demo-login-btn.admin:hover:not(:disabled) {
   background-color: #c0392b;
+}
+
+.demo-login-btn.editor {
+  background-color: #3498db;
+  color: white;
+}
+
+.demo-login-btn.editor:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.demo-login-btn.viewer {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.demo-login-btn.viewer:hover:not(:disabled) {
+  background-color: #7f8c8d;
 }
 
 .demo-login-btn.editor {
