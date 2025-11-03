@@ -10,7 +10,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showCredentials, setShowCredentials] = useState(false);
+
   
   const context = useContext(AuthContext);
   if (!context) {
@@ -86,9 +86,6 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <div className="login-header">
           <h1>Hopeline Care</h1>
           <p>Contact Management System</p>
-          <div className="demo-notice">
-            <small>🚀 <strong>Live Demo</strong> - Try different user roles below</small>
-          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -148,69 +145,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
           </button>
         </form>
 
-        <div className="demo-section">
-          <button
-            type="button"
-            className="demo-toggle"
-            onClick={() => setShowCredentials(!showCredentials)}
-          >
-            {showCredentials ? 'Hide' : 'Show'} Demo Credentials
-          </button>
 
-          {showCredentials && (
-            <div className="demo-credentials">
-              <h3>Demo Accounts:</h3>
-              
-              <div className="demo-account">
-                <div className="demo-info">
-                  <strong>Administrator</strong>
-                  <span>Username: admin | Password: admin123</span>
-                  <small>Full access to all features</small>
-                </div>
-                <button
-                  type="button"
-                  className="demo-login-btn admin"
-                  onClick={() => handleDemoLogin('admin', 'admin123')}
-                  disabled={isSubmitting}
-                >
-                  Login as Admin
-                </button>
-              </div>
-
-              <div className="demo-account">
-                <div className="demo-info">
-                  <strong>Editor</strong>
-                  <span>Username: editor | Password: editor123</span>
-                  <small>Can manage contacts and export data</small>
-                </div>
-                <button
-                  type="button"
-                  className="demo-login-btn editor"
-                  onClick={() => handleDemoLogin('editor', 'editor123')}
-                  disabled={isSubmitting}
-                >
-                  Login as Editor
-                </button>
-              </div>
-
-              <div className="demo-account">
-                <div className="demo-info">
-                  <strong>Viewer</strong>
-                  <span>Username: viewer | Password: viewer123</span>
-                  <small>Read-only access to view data</small>
-                </div>
-                <button
-                  type="button"
-                  className="demo-login-btn viewer"
-                  onClick={() => handleDemoLogin('viewer', 'viewer123')}
-                  disabled={isSubmitting}
-                >
-                  Login as Viewer
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
