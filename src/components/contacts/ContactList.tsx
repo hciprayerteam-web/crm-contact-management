@@ -218,6 +218,7 @@ Ketik "HAPUS" untuk konfirmasi atau "Batal" untuk membatalkan.`;
         </div>
       ) : (
         <>
+          {/* Desktop Table View */}
           <div className="contact-table-container">
             <table className="contact-table">
               <thead>
@@ -320,6 +321,90 @@ Ketik "HAPUS" untuk konfirmasi atau "Batal" untuk membatalkan.`;
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="contact-cards">
+            {paginatedContacts.map((contact) => (
+              <div key={contact.id} className="contact-card">
+                <div className="contact-card-header">
+                  <div>
+                    <div className="contact-card-name">{contact.nama}</div>
+                    <div className="contact-card-phone">{contact.nomorTelepon || 'No Phone'}</div>
+                  </div>
+                  <div className="contact-card-badges">
+                    <span 
+                      className="status-badge"
+                      style={{ backgroundColor: getStatusColor(contact.statusKontak) }}
+                    >
+                      {contact.statusKontak}
+                    </span>
+                    <span className={`priority-badge priority-${(contact.prioritas || 'sedang').toLowerCase()}`}>
+                      {contact.prioritas || 'Sedang'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="contact-card-body">
+                  <div className="contact-card-field">
+                    <div className="contact-card-label">Provinsi</div>
+                    <div className="contact-card-value">{contact.provinsi || '-'}</div>
+                  </div>
+                  <div className="contact-card-field">
+                    <div className="contact-card-label">Sumber</div>
+                    <div className="contact-card-value">
+                      <span className="sumber-badge">
+                        {contact.sumber || 'Lainnya'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="contact-card-field">
+                    <div className="contact-card-label">Created</div>
+                    <div className="contact-card-value">
+                      {contact.createdAt ? formatDateCompact(new Date(contact.createdAt)) : 'No Date'}
+                    </div>
+                  </div>
+                  <div className="contact-card-field">
+                    <div className="contact-card-label">History</div>
+                    <div className="contact-card-value">
+                      <ContactHistoryCompact 
+                        history={contact.history || []} 
+                        maxEntries={1}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="contact-card-actions">
+                  <WhatsAppButton
+                    contact={contact}
+                    variant="button"
+                    showTemplates={false}
+                    size="small"
+                  />
+                  <button
+                    onClick={() => onContactSelect?.(contact)}
+                    className="action-btn view-btn"
+                  >
+                    👁️ View
+                  </button>
+                  <button
+                    onClick={() => onContactEdit?.(contact)}
+                    className="action-btn edit-btn"
+                  >
+                    ✏️ Edit
+                  </button>
+                  {canDeleteContacts(currentUser) && canAccessContact(currentUser, contact.createdBy) && (
+                    <button
+                      onClick={() => handleDelete(contact.id)}
+                      className="action-btn delete-btn"
+                    >
+                      🗑️ Delete
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
 
           {totalPages > 1 && (

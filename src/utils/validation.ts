@@ -23,9 +23,10 @@ export const validateContact = (contact: Partial<Contact>): ValidationResult => 
     errors.push('Alamat is required');
   }
 
-  if (!contact.provinsi || contact.provinsi.trim() === '') {
-    errors.push('Provinsi is required');
-  }
+  // Provinsi is optional - often not available during initial contact
+  // if (!contact.provinsi || contact.provinsi.trim() === '') {
+  //   errors.push('Provinsi is required');
+  // }
 
   if (!contact.agama || contact.agama.trim() === '') {
     errors.push('Agama is required');

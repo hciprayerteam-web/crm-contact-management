@@ -127,8 +127,6 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             )}
           </button>
         </form>
-
-
       </div>
     </div>
   );

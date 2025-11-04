@@ -224,7 +224,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // Validate required fields (only nama and nomorTelepon are required)
+    // Validate required fields (nama, nomorTelepon, jenisKelamin, prioritas, statusKontak, sumber, agama, alasanMenghubungi, alamat are required)
     if (!formData.nama.trim()) {
       newErrors.nama = 'Nama is required';
     } else if (formData.nama.length > 100) {
@@ -253,15 +253,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       newErrors.profesi = 'Profesi must be less than 100 characters';
     }
 
-    if (formData.alamat.trim() && formData.alamat.length > 200) {
-      newErrors.alamat = 'Alamat must be less than 200 characters';
-    }
+    // Alamat validation moved to required section
 
-    // Territory validation - provinsi and kabKota are required for complete territory info
-    if (formData.provinsi && !formData.kabKota) {
-      newErrors.kabKota = 'Kab/Kota harus dipilih setelah memilih provinsi';
-    }
+    // Territory validation removed - provinsi and kabKota are now optional
 
+    // Length validation for agama and alasanMenghubungi (moved to after required validation)
     if (formData.agama.trim() && formData.agama.length > 50) {
       newErrors.agama = 'Agama must be less than 50 characters';
     }
@@ -281,6 +277,24 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
     if (!formData.statusKontak) {
       newErrors.statusKontak = 'Status kontak is required';
+    }
+
+    if (!formData.sumber) {
+      newErrors.sumber = 'Sumber is required';
+    }
+
+    if (!formData.agama.trim()) {
+      newErrors.agama = 'Agama is required';
+    }
+
+    if (!formData.alasanMenghubungi.trim()) {
+      newErrors.alasanMenghubungi = 'Alasan menghubungi is required';
+    }
+
+    if (!formData.alamat.trim()) {
+      newErrors.alamat = 'Alamat is required';
+    } else if (formData.alamat.length > 200) {
+      newErrors.alamat = 'Alamat must be less than 200 characters';
     }
 
     setErrors(newErrors);
@@ -529,7 +543,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="jenisKelamin" className="form-label">
-              Jenis Kelamin
+              Jenis Kelamin <span className="required">*</span>
             </label>
             <select
               id="jenisKelamin"
@@ -668,7 +682,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="agama" className="form-label">
-              Agama
+              Agama <span className="required">*</span>
             </label>
             <select
               id="agama"
@@ -676,6 +690,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               onChange={(e) => handleInputChange('agama', e.target.value)}
               className={`form-select ${errors.agama ? 'error' : ''}`}
               disabled={isSubmitting}
+              required
             >
               <option value="">Pilih Agama</option>
               {RELIGION_OPTIONS.map((religion) => (
@@ -735,15 +750,16 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
         <div className="form-group">
           <label htmlFor="alamat" className="form-label">
-            Alamat
+            Alamat <span className="required">*</span>
           </label>
           <textarea
             id="alamat"
             value={formData.alamat}
             onChange={(e) => handleInputChange('alamat', e.target.value)}
             className={`form-textarea ${errors.alamat ? 'error' : ''}`}
-            placeholder="Enter complete address (optional)"
+            placeholder="Enter complete address"
             disabled={isSubmitting}
+            required
             rows={3}
             maxLength={200}
             autoComplete="off"
@@ -761,15 +777,16 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
         <div className="form-group">
           <label htmlFor="alasanMenghubungi" className="form-label">
-            Alasan Menghubungi
+            Alasan Menghubungi <span className="required">*</span>
           </label>
           <textarea
             id="alasanMenghubungi"
             value={formData.alasanMenghubungi}
             onChange={(e) => handleInputChange('alasanMenghubungi', e.target.value)}
             className={`form-textarea ${errors.alasanMenghubungi ? 'error' : ''}`}
-            placeholder="Enter reason for contact (optional)"
+            placeholder="Enter reason for contact"
             disabled={isSubmitting}
+            required
             rows={4}
             maxLength={500}
             autoComplete="off"
@@ -785,7 +802,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
         <div className="form-group">
           <label htmlFor="sumber" className="form-label">
-            Sumber
+            Sumber <span className="required">*</span>
           </label>
           <select
             id="sumber"
@@ -793,6 +810,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             onChange={(e) => handleInputChange('sumber', e.target.value as Sumber)}
             className={`form-select ${errors.sumber ? 'error' : ''}`}
             disabled={isSubmitting}
+            required
           >
             <option value="">Pilih Sumber</option>
             {SUMBER_OPTIONS.map((sumber) => (
@@ -809,7 +827,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="prioritas" className="form-label">
-              Prioritas
+              Prioritas <span className="required">*</span>
             </label>
             <select
               id="prioritas"

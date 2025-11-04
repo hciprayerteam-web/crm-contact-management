@@ -4,6 +4,7 @@ import { localStorageService } from '../../services/localStorage';
 import { generateId } from '../../utils/helpers';
 import { useAuth } from '../../hooks/useAuth';
 import { LogoUploader } from '../branding/LogoUploader';
+
 import './UserManagement.css';
 
 interface UserFormData {

@@ -57,7 +57,7 @@ export const TerritorySelector: React.FC<TerritorySelectorProps> = ({
           className={errors.provinsi ? 'error' : ''}
           error={!!errors.provinsi}
           label={showLabels ? 'Provinsi' : undefined}
-          required={showLabels}
+          required={false}
         />
         {errors.provinsi && (
           <span className="error-message">{errors.provinsi}</span>
@@ -76,7 +76,7 @@ export const TerritorySelector: React.FC<TerritorySelectorProps> = ({
           className={errors.kabKota ? 'error' : ''}
           error={!!errors.kabKota}
           label={showLabels ? 'Kab/Kota' : undefined}
-          required={showLabels}
+          required={false}
         />
         {errors.kabKota && (
           <span className="error-message">{errors.kabKota}</span>

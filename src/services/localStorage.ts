@@ -178,20 +178,51 @@ class LocalStorageService {
 
   // Initialize default data
   private getDefaultUsers(): User[] {
+    // Use consistent timestamps and IDs across all devices
+    const baseDate = new Date('2024-01-01T00:00:00Z');
     return [
       {
-        id: 'admin-1',
+        id: 'admin-consistent-id',
         username: 'admin',
         role: 'Admin',
-        createdAt: new Date()
+        createdAt: baseDate
       },
       {
-        id: 'editor-1',
+        id: 'editor-consistent-id',
         username: 'editor',
         role: 'Editor',
-        createdAt: new Date()
+        createdAt: baseDate
       }
     ];
+  }
+
+  // Device detection for better UX
+  private getDeviceType(): string {
+    const userAgent = navigator.userAgent;
+    if (/Mobile|Android|iPhone|iPad/.test(userAgent)) {
+      return 'Mobile';
+    }
+    return 'Desktop';
+  }
+
+  // Get or create device identifier
+  private getOrCreateDeviceId(): string {
+    const deviceId = this.getStorageData('device_id', null);
+    if (!deviceId) {
+      const newDeviceId = 'device-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      this.setStorageData('device_id', newDeviceId);
+      return newDeviceId;
+    }
+    return deviceId;
+  }
+
+  // Get device info for session management
+  getDeviceInfo(): { deviceId: string; deviceType: string; userAgent: string } {
+    return {
+      deviceId: this.getOrCreateDeviceId(),
+      deviceType: this.getDeviceType(),
+      userAgent: navigator.userAgent
+    };
   }
 
   private getDefaultSettings(): AppSettings {

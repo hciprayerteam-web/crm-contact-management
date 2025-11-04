@@ -238,9 +238,38 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    padding-top: 80px; /* Space for mobile navigation */
+  }
+  
+  .contacts-with-filters {
+    padding: 1.5rem;
+  }
+  
+  .dashboard {
+    padding: 1.5rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
+    padding-top: 120px; /* More space for mobile navigation */
+  }
+  
+  .contacts-with-filters {
+    padding: 1rem;
   }
   
   .dashboard {
